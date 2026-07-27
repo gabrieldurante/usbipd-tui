@@ -181,3 +181,21 @@ def test_load_auto_attach_bus_ids_ignores_invalid_config(monkeypatch, tmp_path):
     monkeypatch.setattr(wsl2_usb, "AUTO_ATTACH_FILE", config_file)
 
     assert wsl2_usb._load_auto_attach_bus_ids() == set()
+
+
+def test_main_runs_the_application(monkeypatch):
+    calls = []
+    fake_app = SimpleNamespace(run=lambda: calls.append("run"))
+    monkeypatch.setattr(wsl2_usb, "Wsl2UsbApp", lambda: fake_app)
+
+    wsl2_usb.main([])
+
+    assert calls == ["run"]
+
+
+def test_version_flag_prints_package_version(capsys):
+    with pytest.raises(SystemExit) as exit_info:
+        wsl2_usb.main(["--version"])
+
+    assert exit_info.value.code == 0
+    assert capsys.readouterr().out == "usbipd-tui 0.1.0\n"

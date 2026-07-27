@@ -37,15 +37,20 @@ wsl --update
 
 ## Installation
 
-Run these commands inside WSL:
+The recommended installation method is
+[pipx](https://pipx.pypa.io/stable/), which installs the application in an
+isolated environment:
+
+```bash
+pipx install usbipd-tui
+```
+
+To install the latest source version instead:
 
 ```bash
 git clone https://github.com/gabrieldurante/usbipd-tui.git
 cd usbipd-tui
-
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
+pipx install .
 ```
 
 ## Usage
@@ -53,7 +58,7 @@ python3 -m pip install -r requirements.txt
 Start the application from WSL:
 
 ```bash
-python3 wsl2_usb.py
+usbipd-tui
 ```
 
 Select a device with the arrow keys, then use a button or keyboard shortcut to
@@ -108,9 +113,11 @@ guide.
 Install the development dependencies and run the test suite from WSL:
 
 ```bash
-python3 -m pip install -r requirements-dev.txt
+python3 -m pip install -e ".[dev]"
 python3 -m pytest
 ```
+
+See [CHANGELOG.md](CHANGELOG.md) for release history.
 
 ## License
 

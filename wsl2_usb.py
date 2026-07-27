@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """WSL2 USB — Terminal UI for sharing USB devices with WSL2."""
 
+import argparse
 import json
 import os
 import re
@@ -20,6 +21,7 @@ from textual.widgets import (
     Button, DataTable, Footer, Header, RichLog, Static,
 )
 
+__version__ = "0.1.0"
 
 USBIPD = "usbipd.exe"
 AUTO_REFRESH = 5.0
@@ -620,5 +622,16 @@ class Wsl2UsbApp(App):
     def _btn_refresh(self):     self.action_refresh()
 
 
-if __name__ == "__main__":
+def main(argv: Optional[list[str]] = None) -> None:
+    parser = argparse.ArgumentParser(prog="usbipd-tui", description=__doc__)
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
+    )
+    parser.parse_args(argv)
     Wsl2UsbApp().run()
+
+
+if __name__ == "__main__":
+    main()
