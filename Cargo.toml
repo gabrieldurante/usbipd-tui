@@ -1,0 +1,23 @@
+[package]
+name = "usbipd-tui"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+description = "Terminal interface for sharing USB devices with WSL2"
+license = "GPL-3.0-only"
+
+[[bin]]
+name = "usbipd-tui"
+path = "src/main.rs"
+
+[dependencies]
+crossterm = "0.28"
+ratatui = "0.29"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+
+[workspace]
+members = ["sidecar"]
+default-members = ["."]
+resolver = "2"
